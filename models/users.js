@@ -1,5 +1,5 @@
 // Imports
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 // User schema
 const userSchema = new Schema(
