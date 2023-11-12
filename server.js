@@ -1,34 +1,21 @@
-const express = require('express');
-// Run npm install mongodb and require mongodb and MongoClient class
-const { MongoClient } = require('mongodb');
+// Imports
+const express = require("express");
+const db = require("./config/connection");
+const routes = require("./routes");
 
+const cwd = process.cwd();
+
+const PORT = process.env.PORT || 3001;
 const app = express();
-const port = 3001;
 
-// Connection string to local instance of MongoDB
-const connectionStringURI = `mongodb://127.0.0.1:27017`;
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-// Initialize a new instance of MongoClient
-const client = new MongoClient(connectionStringURI);
-
-// Declare a variable to hold the connection
-let db;
-
-// Create variable to hold our database name
-const dbName = '   ';
-
-// Use connect method to connect to the mongo server
-client.connect()
-  .then(() => {
-    console.log('Connected successfully to MongoDB');
-    // Use client.db() constructor to add new db instance
-    db = client.db(dbName);
-
-    // start up express server
-    app.listen(port, () => {
-      console.log(`Example app listening at http://localhost:${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Mongo connection error: ', err.message);
+// Allows server to listen for requests and send responses
+db.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
   });
+});
