@@ -5,22 +5,28 @@ const reactionSchema = require("./reaction");
 // Thought schema
 const thoughtSchema = new Schema(
   {
-    published: {
-      type: Boolean,
-      default: false,
+    text: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
     },
+    username: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+    },
+    published: {
+      type: Boolean,
+      default: false,
+    },
     meta: {
       upvotes: Number,
       bookmarks: Number,
-    },
-    text: {
-      type: String,
-      minLength: 15,
-      maxLength: 500,
     },
   },
   {
