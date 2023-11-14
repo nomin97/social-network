@@ -1,5 +1,5 @@
 // Imports
-const { User, Thought } = require("../models");
+const { User, Thought } = require("../models/thoughts");
 
 // Get all thoughts
 module.exports = {
@@ -10,10 +10,9 @@ module.exports = {
     } catch (err) {
       res.status(500).json(err);
     }
-  }
-  ,
+  },
   // Get single thought
-  async getThought(req, res) {
+  async getSingleThought(req, res) {
     try {
       const thought = await Thought.findOne({ _id: req.params.thoughtId });
       if (!thought) {
@@ -25,7 +24,7 @@ module.exports = {
     }
   },
 
-  // Create thought
+  // Create a new thought
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
@@ -34,9 +33,14 @@ module.exports = {
         { $addToSet: { thoughts: thought._id } },
         { runValidators: true, new: true }
       );
-      res.status(200).json({ thought, user });
+      
+      if (!user) {
+        return res.status(404).json({ message: 'Thought created, but found no user with that ID' });
+      }
+      res.json('Thought created!');
     } catch (err) {
-       res.status(500).json(err);
+      console.log(err);
+      res.status(500).json(err);
     }
   },
 

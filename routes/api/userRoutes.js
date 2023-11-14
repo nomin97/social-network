@@ -15,7 +15,7 @@ const {
 // /api/users
 router.route('/').get(getUsers).post(createUser);
 
-// api/
+// api/SingleUser
 router.route('/:userId')
   .get(getSingleUser)
   .put(updateUser)
