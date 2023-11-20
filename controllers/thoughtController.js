@@ -1,5 +1,5 @@
 // Imports
-const { User, Thought } = require("../models/thoughts");
+const { User, Thought } = require("../models");
 
 // Get all thoughts
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
       if (!thought) {
          res.status(404).json({ message: "No thought with that ID" });
       }
-      res.json(thoughts);
+      res.json(thought);
     } catch (err) {
       res.status(500).json(err)
     }

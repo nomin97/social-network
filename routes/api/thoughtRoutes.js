@@ -4,19 +4,19 @@ const router = require("express").Router();
 // Imports functions written in thoughtController.js file
 const {
   getThoughts,
-  getThought,
+  getSingleThought,
   createThought,
   updateThought,
   deleteThought,
   addReaction,
   deleteReaction,
-} = require('/controllers/thoughtController');
+} = require('../../controllers/thoughtController');
 
 router.route('/').get(getThoughts).post(createThought);
 
 router
   .route('/:thoughtId')
-  .get(getThought)
+  .get(getSingleThought)
   .put(updateThought)
   .delete(deleteThought);
 

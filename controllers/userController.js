@@ -1,5 +1,5 @@
 // Imports
-const { User, Thought } = require("../models/users");
+const { User, Thought } = require("../models");
 
 // Get all users
 module.exports = {
