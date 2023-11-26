@@ -5,7 +5,7 @@ const reactionSchema = require("./reaction");
 // Thought schema
 const thoughtSchema = new Schema(
   {
-    text: {
+    thought: {
       type: String,
       required: true,
       minLength: 1,
@@ -16,18 +16,16 @@ const thoughtSchema = new Schema(
       default: Date.now,
     },
     username: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
+        type: String,
         required: true,
     },
     published: {
       type: Boolean,
       default: false,
     },
-    meta: {
-      upvotes: Number,
-      bookmarks: Number,
-    },
+    reactions: [
+      reactionSchema
+    ]
   },
   {
     toJSON: {

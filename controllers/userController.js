@@ -5,7 +5,7 @@ const { User, Thought } = require("../models");
 module.exports = {
   async getUsers(req, res) {
     try {
-      const users = await User.find()
+      const users = await User.find().populate("thoughts").populate("friends")
       res.json(users);
     } catch (err) {
       console.log(err);
@@ -16,8 +16,8 @@ module.exports = {
   async getSingleUser(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.userId })
+      .populate("thoughts").populate("friends")
         .select('-__v')
-        .populate('posts');
       if (!user) {
         return res.status(404).json({ message: "No user with that ID" });
       }
